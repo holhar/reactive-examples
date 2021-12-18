@@ -4,7 +4,7 @@ import de.holhar.spring.reactiveexamples.domain.Person;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public class PersonInterfaceImpl implements PersonInterface {
+public class PersonRepositoryImpl implements PersonRepository {
 
     Person michael = new Person(1, "Michael", "Weston");
     Person fiona = new Person(2, "Fiona", "Glenanne");
@@ -13,7 +13,7 @@ public class PersonInterfaceImpl implements PersonInterface {
 
     @Override
     public Mono<Person> getById(Integer id) {
-        return Mono.just(michael);
+        return findAll().filter(person -> person.getId().equals(id)).next();
     }
 
     @Override
